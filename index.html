@@ -2943,19 +2943,10 @@
         // ════════════════════════════════════════════════
         let lastTime = 0, gameStarted = false, countdownTimer = 0, matchTimer = 180;
 
-        let lastFrameTime = 0;
         function render(time = 0) {
             requestAnimationFrame(render);
-
-            // FPS capping for 24h stability & power saving
-            const targetFPS = document.hasFocus() ? 60 : 10;
-            const minInterval = 1000 / targetFPS;
-            const elapsed = time - lastFrameTime;
-            if (elapsed < minInterval) return;
-
             const dt = Math.min((time - lastTime) / 1000, 0.05);
             lastTime = time;
-            lastFrameTime = time - (elapsed % minInterval);
 
             if (!gameStarted || !loadingComplete) {
                 if (cameras && cameras[0]) renderer.render(scene, cameras[0]);
